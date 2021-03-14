@@ -1,31 +1,27 @@
 import './styles.css';
 
-new CountdownTimer({
-    selector: '#timer-1',
-    targetDate: new Date('Jul 17, 2019'),
-  });
-
-  /*
- * Оставшиеся дни: делим значение UTC на 1000 * 60 * 60 * 24, количество
- * миллисекунд в одном дне (миллисекунды * секунды * минуты * часы)
- */
-const days = Math.floor(time / (1000 * 60 * 60 * 24));
-
-/*
- * Оставшиеся часы: получаем остаток от предыдущего расчета с помощью оператора
- * остатка % и делим его на количество миллисекунд в одном часе
- * (1000 * 60 * 60 = миллисекунды * минуты * секунды)
- */
-const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-/*
- * Оставшиеся минуты: получаем оставшиеся минуты и делим их на количество
- * миллисекунд в одной минуте (1000 * 60 = миллисекунды * секунды)
- */
-const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-
-/*
- * Оставшиеся секунды: получаем оставшиеся секунды и делим их на количество
- * миллисекунд в одной секунде (1000)
- */
-const secs = Math.floor((time % (1000 * 60)) / 1000);
+const myfunc = setInterval(function() {
+  
+  const targetDate = new Date('Jul 17, 2021');
+  const currentDate = new Date();
+  let time = targetDate - currentDate;      
+ 
+  const days = Math.floor(time / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const mins = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+  const secs = Math.floor((time % (1000 * 60)) / 1000);
+      
+  
+  document.querySelector('[data-value="days"]').innerHTML = days;
+  document.querySelector('[data-value="hours"]').innerHTML = hours;
+  document.querySelector('[data-value="mins"]').innerHTML = mins; 
+  document.querySelector('[data-value="secs"]').innerHTML = secs; 
+      
+  if (time < 0) {
+      clearInterval(myfunc);
+      document.querySelector('[data-value="days"]').innerHTML = "";
+      document.querySelector('[data-value="hours"]').innerHTML = ""; 
+      document.querySelector('[data-value="mins"]').innerHTML = "";
+      document.querySelector('[data-value="secs"]').innerHTML = "";
+  }
+  }, 1000);
